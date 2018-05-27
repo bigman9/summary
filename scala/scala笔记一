@@ -1,0 +1,49 @@
+1.多个值放在一起声明:
+val xmax,ymax=100
+2.BigInt/BigDecimal使用:
+val x:BigInt=4343423423
+val x:BigDecimal =0.4343141234
+3.伴生对象的apply方法， 常用于构建对象， 不常用new关键字  重点
+4.if else
+val s = if(x >0) "positive" else -1
+5.块表达式
+val distance = {val dx =x -x0;val dy=y-y0;sqrt(dx*dx+dy*dy)}
+6.循环
+while(和java相同)
+7.Breakable退出循环
+8.for循环  守卫 推导式
+ for(i <- 1 to 3; j <- 1 to 3) println((10*i+j)+" ")
+9.定长数组
+val nums = new Array[Int](10) //未提供初始值用new 不常用
+val nums =Array(1,2) //提供初始值就不用new了
+10.变长数组
+import scala.collection.mutable
+val b = mutable.ArrayBuffer[Int]()
+val b = mutable.ArrayBuffer.empty[Int]
+11.数组转换
+nums.toBuffer	b.toArray
+12. 0 to 10 和0 until 10区别
+13. 0 to (10,2)和 0 until (10,2) 区别
+14.  mkString和toString区别
+15.映射
+val scores = new scala.collection.mutable.HashMap[String,Int] 不常用
+val score = scala.collection.mutable.HashMap.empty[String,Int]
+16.映射查找键
+val bobsScore = scores.getOrElse("Bob",0)
+17.排序映射
+val scores = scala.collection.immutable.SortedMap("a"->2,"b"->3,"g"->4,"c"->2)
+18.类 辅助构造器this 主构造器 每当有对象被构造出来时，主构造器中语句都会被执行一次
+初始化时特别有用
+19.伴生对象 apply方法构造对象不用new 关键字 class 构造器用
+20.apply 构造器 和unapply 提取器 unapplySeq
+21.函数作为值 val fun=ceil _
+22.匿名函数 val triple = (x:Double) => 3 *x
+23.高阶函数 ((Double) => Double) => Double 或 闭包 (Double)=>((Double) =>Double)
+24.闭包就是返回一个函数,可携带传入的变量
+25.Vector是ArrayBuffer的不可变版本
+26.to 和util 生成Range
+27.List LinkedList
+28.Set LinkedHashSet SortedSet
+29.操作 reduceLeft reduceRight foldLeft foldRight scanLeft scanRight
+30.Iterator
+31.并发 for(i <-(0 until 100).par) print(i+" ")
