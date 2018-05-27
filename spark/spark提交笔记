@@ -1,0 +1,15 @@
+一、standalone提交方式
+ ./bin/spark-submit \
+  --class com.yty.spark.analysis.scala.feature.Test \
+  --master spark://server911:7077 \
+  --num-executors 3 \
+  --executor-memory 6G \
+  --executor-cores 3 \
+  --driver-memory 4G \
+  --total-executor-cores 9 \
+  --conf spark.default.parallelism=18 \
+  /home/hadoop/spark-jars/cluster/analysis.scala.jar \
+  1500 18 18 30
+  
+  
+  二、YARN提交方式
