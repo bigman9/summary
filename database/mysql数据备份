@@ -1,0 +1,8 @@
+mysql root 
+-p sxn_ytyW_Z@MCzd1eD4
+
+#追加，不包含建数据库，建表
+mysqldump -uroot -p --databases MILLIONS_CRAWLER --tables APP_SOURCE_DATA_NEWS_CN --where='id>1386778 limit 20000'  --no-create-db --no-create-info > /home/hadoop/dump.txt
+
+#全表导出，包含建数据库，建表
+mysqldump -uroot -p --databases MILLIONS_CRAWLER --tables APP_SOURCE_DATA_NEWS_CN --where='id>1386778'  > /home/hadoop/dump.txt
