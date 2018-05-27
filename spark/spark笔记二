@@ -1,0 +1,29 @@
+1.spark 开发只需spark-cores 即可,连接hadoop,则加入hadoop-client即可
+2.spark-shell 可以引入外部jar ./bin/spark-shell --master local[4] --jars code.jar
+3.spark 读取sequenceFile SparkContext.sequenceFile[Int,String](path,3)   saveAsSequenceFile(path) 
+4.spark 读取hadoop文件 spark.hadoopRDD 或者 SparkContext.newAPIHadoopRDD saveAsObjectFile(path) 
+5.spark 读取avro saveAsObjectFile(path) 
+6.spark 高效 存储avro
+7.spark counter发送到各个excutor,但是driver上的counter是不可见的，所以不会改变，必须使用accumulator  val accum = sc.accumulator(0, "My Accumulator")
+8.集群模式这样用才对 rdd.take(100).foreach(println) 而不是这样 rdd.foreach(println)错误
+9.sparkSQL val df = sqlContext.sql("SELECT * FROM table")
+
+10.row.getValueMap
+// row.getValuesMap[T] retrieves multiple columns at once into a Map[String, T]
+teenagers.map(_.getValuesMap[Any](List("name", "age"))).collect().foreach(println)
+// Map("name" -> "Justin", "age" -> 19)
+
+11.读取parquet
+默认格式
+val df = sqlContext.read.load("examples/src/main/resources/users.parquet")
+df.select("name", "favorite_color").write.save("namesAndFavColors.parquet")
+指定格式
+val df = sqlContext.read.format("json").load("examples/src/main/resources/people.json")
+df.select("name", "age").write.format("parquet").save("namesAndAges.parquet")
+
+12.特殊读取
+val df = sqlContext.sql("SELECT * FROM parquet.`examples/src/main/resources/users.parquet`")
+
+13.spark Partition Discovery 分区发现
+
+14.df.groupBy("department").agg(max("age"), sum("expense"))
