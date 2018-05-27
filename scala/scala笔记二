@@ -1,0 +1,19 @@
+1.模式匹配+守卫 模式中的变量可以获取值
+2.匹配类型
+3.匹配数组、列表和元组
+4.变量声明中的模式 val Array(first,second,_*)=arr
+5.Option类型
+6.注解,解析器和定界延续,xml省略过去
+7.上界 <: 继承 下界 >: 强制类型转换(多态)
+8.视图界定 <% 必须存在隐式转换
+9.上下文界定 T:M M是一个泛型类，它要求必须存在一类型为M[T]的隐式值
+10.Manifest上下文界定 实例化一个泛型数组Array[T]
+11.多重界定
+12.类型约束 T =:= U T <:< U T <%< U
+13.协变和逆变(不懂) +T -T
+14.单例类型 返回值this 类型 this.type 链式结构
+15.类型别名 type Index = HashMap[String,(Int,Int)]
+16.存在类型 Array[_] Map[_,_]
+17.scala java  maven混合编译命令   clean scala:compile compile install
+
+29.隐式转换函数和隐式转换参数
