@@ -1,0 +1,35 @@
+1.parquet数据格式及其应用
+2.Spark 可以将任何Hadoop 分布式文件系统（HDFS）上的文件读取为分布式数据集
+3.文本文件、SequenceFile、Avro、Parquet
+4.conf目录下创建一个名为log4j.properties 的文件来管理日志设置
+	log4j.rootCategory=WARN, console
+5.Spark 会自动将函数（比如line.contains("Python")）发到各个执行器节点上执行
+6.sparkconf参数配置
+7.Maven 构建与运行 mvn clean && mvn compile && mvn package
+8.每个RDD 都被分为多个分区，这些分区运行在集群中的不同节点上
+9.用户可以使用两种方法创建RDD：读取一个外部数据集，或在驱动器程序里分发驱动器程序中的对象集合（比如list 和set），parallelize除了开发原型和测试时，这种方式用得并不多，毕竟这种方式需要把你的整个数据集先放在一台机器的内存中
+10.saveAsTextFile()、saveAsSequenceFile()
+11.如果在Scala 中出现了NotSerializableException，通常问题就在于我们传递了一个不可序列化的类中的函数或字段。记住，传递局部可序列化变量或顶级对象中的函数始终是安全的。
+12.sc.parallelize本地并行化，而不是所有的机器并行化，即使广播出去，但是别的节点用不到，也不会并行化
+13.distinct 去重，但是会suffle，开销很大 union intersection (shuffle)  subract(shuffle) cartesian 笛卡尔积 可以计算相似度
+14.	fold() 和reduce() 都要求函数的返回值类型需要和我们所操作的RDD 中的元素类型相同
+15.fold() 和reduce() 类似，接收一个与reduce() 接收的函数签名相同的函数，再加上一个
+“初始值”来作为每个分区第一次调用时的结果。你所提供的初始值应当是你提供的操作
+的单位元素；也就是说，使用你的函数对这个初始值进行多次计算不会改变结果（例如+
+对应的0，* 对应的1，或拼接操作对应的空列表）。
+16.fold作用:我们可以通过原地修改并返回两个参数中的前一个的值来节约在fold() 中创建对象的开销。但是你没有办法修改第二个参数。
+val sum = rdd.reduce((x, y) => x + y)
+17.aggregate() 函数则把我们从返回值类型必须与所操作的RDD 类型相同的限制中解放出
+来。与fold() 类似，使用aggregate() 时，需要提供我们期待返回的类型的初始值。然后
+通过一个函数把RDD 中的元素合并起来放入累加器。考虑到每个节点是在本地进行累加
+的，最终，还需要提供第二个函数来将累加器两两合并。
+18.scala中的aggregate()函数
+val result = input.aggregate((0, 0))(
+(acc, value) => (acc._1 + value, acc._2 + 1),
+(acc1, acc2) => (acc1._1 + acc2._1, acc1._2 + acc2._2))
+val avg = result._1 / result._2.toDouble
+19.开发时经常使用调试:take(n) 返回RDD 中的n 个元素，并且尝试只访问尽量少的分区，因此该操作会得到一个不均衡的集合。需要注意的是，这些操作返回元素的顺序与你预期的可能不一样。
+如果为数据定义了顺序，就可以使用top() 从RDD 中获取前几个元素。top() 会使用数据
+的默认顺序，但我们也可以提供自己的比较函数，来提取前几个元素。
+20.countByvalue takeOrdered()
+21.键值对RDD 通常用来进行聚合计算
