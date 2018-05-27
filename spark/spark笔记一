@@ -33,3 +33,9 @@ val avg = result._1 / result._2.toDouble
 的默认顺序，但我们也可以提供自己的比较函数，来提取前几个元素。
 20.countByvalue takeOrdered()
 21.键值对RDD 通常用来进行聚合计算
+
+1.在Scala 中，为了让提取键之后的数据能够在函数中使用，同样需要返回二元组。隐式转换可以让二元组RDD 支持附加的键值对函数。
+val pairs = lines.map(x => (x.split(" ")(0), x))
+2.一个pairRDD 操作 reduceByKey(func)	groupByKey() combineByKey( createCombiner,mergeValue,mergeCombiners,partitioner) mapValues(func) flatMapValues(func) keys() values() sortByKey()
+3.两个pairRDD 操作subtractByKey join rightOuterJoin leftOuterJoin cogroup
+4.foldByKey()
